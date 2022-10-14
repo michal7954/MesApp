@@ -2,7 +2,7 @@ class Node:
     id = None
     x = None
     y = None
-    t = None
+    temperature = None
     boundaryCondition = None
 
     def __init__(self, dataString) -> None:
