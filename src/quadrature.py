@@ -1,14 +1,5 @@
-from math import sqrt, pow
-
-twoPoints = [
-    [-1 / sqrt(3), 1 / sqrt(3)],
-    [1, 1]
-]
-
-threePoints = [
-    [-sqrt(3 / 5), 0, sqrt(3 / 5)],
-    [5 / 9, 8 / 9, 5 / 9]
-]
+from math import pow
+from consts import twoPointsQuadrature, threePointsQuadrature
 
 
 def f1(x):
@@ -19,11 +10,11 @@ def f2(ksi, eta):
     return 3 * pow(ksi, 2) * eta + 2 * ksi * pow(eta, 2) + 2
 
 
-def quadrature(f, pointsNumber, dimension):
+def quadrature(f, dimension, pointsNumber=3):
     if pointsNumber == 2:
-        [P, W] = twoPoints
+        [P, W] = twoPointsQuadrature
     elif pointsNumber == 3:
-        [P, W] = threePoints
+        [P, W] = threePointsQuadrature
     else:
         return None
 
@@ -41,8 +32,8 @@ def quadrature(f, pointsNumber, dimension):
     return sum
 
 
-print(quadrature(f1, 2, 1))
-print(quadrature(f1, 3, 1))
+print(quadrature(f1, 1, 2))
+print(quadrature(f1, 1, 3))
 
 print(quadrature(f2, 2, 2))
-print(quadrature(f2, 3, 2))
+print(quadrature(f2, 2, 3))
