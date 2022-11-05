@@ -1,5 +1,12 @@
 from math import sqrt
 
+nodeSize = 4
+
+inputFile0Location = 'inputFiles/Test1_4_4.txt'
+inputFile1Location = 'inputFiles/Test2_4_4_MixGrid.txt'
+inputFile2Location = 'inputFiles/Test3_31_31_kwadrat.txt'
+inputFileLocationList = [inputFile0Location, inputFile1Location, inputFile2Location]
+
 twoPointsQuadrature = [
     [-1 / sqrt(3), 1 / sqrt(3)],
     [1, 1]
@@ -40,8 +47,6 @@ quadraturePoints = {
     },
 }
 
-nodeSize = 4
-
 shapeFunctions = {
     "func": [
         lambda ksi, eta: (1 - ksi) * (1 - eta) / 4,
@@ -62,7 +67,3 @@ shapeFunctions = {
         lambda ksi: (1 - ksi) / 4,
     ],
 }
-
-
-# for fun in shapeFunctions:
-#     print(fun(-1,-1))

@@ -1,4 +1,4 @@
-from consts import twoPointsQuadrature, threePointsQuadrature
+from params.consts import twoPointsQuadrature, threePointsQuadrature
 
 
 def integrate(f, dimension, pointsNumber=3, x_1=-1, x_2=1):
@@ -28,12 +28,7 @@ def weightSum(f, dimension, pointsNumber, P, W):
     for i in range(pointsNumber):
         if dimension == 1:
             sum += f(P[i]) * W[i]
-        # do obsługi dwóch wymarów potrzebne jest osobne mapowanie i Jakobian przedziału całkowania drugiego wymiaru
-        # else:
-        #     for j in range(pointsNumber):
-        #         if dimension == 2:
-        #             sum += f(P[i], P[j]) * W[i] * W[j]
-    return sum
+        # do obsługi dwóch wymarów potrzebne jest bardzej skomplikowane przekształcenie macierzowe
 
 
 def f(x):

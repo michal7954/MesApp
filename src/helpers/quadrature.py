@@ -1,5 +1,5 @@
 from math import pow
-from consts import twoPointsQuadrature, threePointsQuadrature
+from params.consts import twoPointsQuadrature, threePointsQuadrature
 
 
 def f1(x):

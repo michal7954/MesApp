@@ -1,49 +1,52 @@
-from configuration import pointsScheme
-from consts import nodeSize, quadraturePoints, shapeFunctions
 import numpy as np
-
-
-def generateCoords():
-    coords = quadraturePoints[pointsScheme]["coords"]
-    pointsList = []
-    for i in range(pointsScheme):
-        for j in range(pointsScheme):
-            pointsList.append((coords[j], coords[i]))
-
-    return pointsList
-
+from params.configuration import pointsScheme
+from params.consts import nodeSize, shapeFunctions
+from helpers.generateCoords import coords
 
 class Elem4:
     dKsi = []
     dEta = []
-    points = 0
-    coords = []
+    pointsNumber = pointsScheme**2
+    coords = coords
 
     def __init__(self) -> None:
+        # załadowanie listy pochodnych funkcji kształtu
         dKsiFuncs = shapeFunctions["dKsi"]
         dEtaFuncs = shapeFunctions["dEta"]
-        self.points = pointsScheme**2
-        self.coords = generateCoords()
 
+        # obliczenie wartości pochodnych po dwóch zmiennych funkcji kształtu w poszczególnych punktach całkowania
+        # i-ta funkcja kształtu
+        # j-ty punkt całkowania
+
+        # dKsi - tablica zawierająca wartości pochodnych po ksi, których argumentem jest eta (druga współrzędna)
         self.dKsi = [
             [dKsiFuncs[i](self.coords[j][1]) for i in range(nodeSize)]
-            for j in range(pointsScheme**2)
+            for j in range(self.pointsNumber)
         ]
+        # dEta - tablica zawierająca wartości pochodnych po eta, których argumentem jest ksi (pierwsza współrzędna)
         self.dEta = [
             [dEtaFuncs[i](self.coords[j][0]) for i in range(nodeSize)]
-            for j in range(pointsScheme**2)
+            for j in range(self.pointsNumber)
         ]
 
     def printKsiArray(self):
-        dKsiOutput = [None for _ in range(self.points)]
-        for i in range(self.points):
+        dKsiOutput = [None for _ in range(self.pointsNumber)]
+        for i in range(self.pointsNumber):
             dKsiOutput[i] = [self.coords[i][1]]
             dKsiOutput[i].extend(self.dKsi[i])
+
+        print('---------------------------------------------------------------')
         print(np.matrix(dKsiOutput))
+        print()
 
     def printEtaArray(self):
-        dEtaOutput = [None for _ in range(self.points)]
-        for i in range(self.points):
+        dEtaOutput = [None for _ in range(self.pointsNumber)]
+        for i in range(self.pointsNumber):
             dEtaOutput[i] = [self.coords[i][0]]
             dEtaOutput[i].extend(self.dEta[i])
+
+        print('---------------------------------------------------------------')
         print(np.matrix(dEtaOutput))
+        print()
+
+elem4 = Elem4()

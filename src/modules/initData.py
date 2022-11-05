@@ -2,9 +2,10 @@ from classes.Node import Node
 from classes.Element import Element
 from classes.Grid import Grid
 from classes.GlobalData import GlobalData
-from configuration import inputFile1Location, inputFile2Location, inputFile3Location
+from params.configuration import inputFileIndex
+from params.consts import inputFileLocationList
 
-inputFile = open(inputFile1Location, 'r')
+inputFile = open(inputFileLocationList[inputFileIndex], 'r')
 fileParts = inputFile.read().split('\n*')
 for i in range(len(fileParts)):
     fileParts[i] = fileParts[i].split('\n')
@@ -44,6 +45,7 @@ def initGrid():
             nodeObject = nodesList[nodeId - 1]
             elementsList[i].nodes[j] = nodeObject
 
+    # obliczenie macierzy przekształceń kla każdego elementu
     for element in elementsList:
         element.calculateMatrices()
 

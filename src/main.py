@@ -1,4 +1,4 @@
-from initData import initGlobalData, initGrid
+from modules.initData import initGlobalData, initGrid
 from classes.Elem4 import elem4
 
 def main():
