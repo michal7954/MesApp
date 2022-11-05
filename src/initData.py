@@ -44,6 +44,9 @@ def initGrid():
             nodeObject = nodesList[nodeId - 1]
             elementsList[i].nodes[j] = nodeObject
 
+    for element in elementsList:
+        element.calculateMatrices()
+
     grid = Grid()
     grid.nodesNumber = globalData.nodesNumber
     grid.elementsNumber = globalData.elementsNumber
