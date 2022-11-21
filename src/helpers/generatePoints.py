@@ -1,13 +1,19 @@
 from params.consts import quadraturePoints
 from params.configuration import pointsScheme
 
-def generateCoords():
+def generatePoints():
     coords = quadraturePoints[pointsScheme]["coords"]
+    weights = quadraturePoints[pointsScheme]["weights"]
+    
     pointsList = []
+    weightsList = []
+
     for i in range(pointsScheme):
         for j in range(pointsScheme):
             pointsList.append((coords[j], coords[i]))
+            weightsList.append(weights[j] * weights[i])
 
-    return pointsList
+    return [pointsList, weightsList]
 
-coords = generateCoords()
+
+[coords, weights] = generatePoints()

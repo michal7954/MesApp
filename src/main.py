@@ -11,8 +11,10 @@ def main():
     # elem4.printKsiArray()
     # elem4.printEtaArray()
 
-    for element in grid.elements:
-        element.printMatrices()
+    # for element in grid.elements:
+    #     element.printJacobians()
+    #     element.printShapeFuncitonsDerivates()
+    #     element.printHTotal()
 
 if __name__ == '__main__':
     main()

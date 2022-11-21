@@ -1,7 +1,7 @@
 import numpy as np
 from params.configuration import pointsScheme
 from params.consts import nodeSize, shapeFunctions
-from helpers.generateCoords import coords
+from helpers.generatePoints import coords
 
 class Elem4:
     dKsi = []

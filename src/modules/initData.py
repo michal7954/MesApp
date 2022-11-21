@@ -45,9 +45,16 @@ def initGrid():
             nodeObject = nodesList[nodeId - 1]
             elementsList[i].nodes[j] = nodeObject
 
-    # obliczenie macierzy Jacobiego dla każdego elementu
+    # obliczenia związane z całką H na każdym elemencie
     for element in elementsList:
-        element.calculateMatrices()
+        element.calculateJacobians()
+        element.printJacobians()
+
+        element.calculateShapeFunctionsDerivates()
+        element.printShapeFuncitonsDerivates()
+
+        element.calculateH(globalData.conductivity)
+        element.printHTotal()
 
     grid = Grid()
     grid.nodesNumber = globalData.nodesNumber
