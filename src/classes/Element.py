@@ -16,7 +16,7 @@ class Element:
 
     dx = []
     dy = []
-    
+
     dxH = []
     dyH = []
     H = []
@@ -106,10 +106,13 @@ class Element:
 
         print('-----------------------------------')
         print('Element', self.id)
+        print('Macierze Jakobiego')
         print(np.matrix(outputJacobianTable))
         print()
+        print('Jakobiany')
         print(np.array(self.jacobianDeterminants))
         print()
+        print('Odwrotne macierze Jakobiego (po podzieleniu przez wyznacznik)')
         print(np.matrix(outputInvertibleJacobianTable))
         print()
 
@@ -123,8 +126,10 @@ class Element:
                 self.dy[point][i] = self.invertibleJacobianMatrices[point][1][0] * elem4.dKsi[point][i] + self.invertibleJacobianMatrices[point][1][1] * elem4.dEta[point][i] 
 
     def printShapeFuncitonsDerivates(self):
+        print('dN_i/dx')
         print(np.matrix(self.dx))
         print()
+        print('dN_i/dy')
         print(np.matrix(self.dy))
         print()
 
@@ -153,5 +158,6 @@ class Element:
         # print()
 
     def printHTotal(self):
+        print('Macierz H (po zsumowaniu)')
         print(np.matrix(self.HTotal))
         print()
