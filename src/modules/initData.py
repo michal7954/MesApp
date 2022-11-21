@@ -45,7 +45,7 @@ def initGrid():
             nodeObject = nodesList[nodeId - 1]
             elementsList[i].nodes[j] = nodeObject
 
-    # obliczenie macierzy przekształceń kla każdego elementu
+    # obliczenie macierzy Jacobiego dla każdego elementu
     for element in elementsList:
         element.calculateMatrices()
 

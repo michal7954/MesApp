@@ -8,8 +8,8 @@ def main():
     # globalData.print()
     # grid.print()
 
-    elem4.printKsiArray()
-    elem4.printEtaArray()
+    # elem4.printKsiArray()
+    # elem4.printEtaArray()
 
     for element in grid.elements:
         element.printMatrices()
