@@ -29,7 +29,7 @@ class Grid:
                     self.HG[element.nodes[i].id - 1][element.nodes[j].id - 1] += element.HTotal[i][j]
 
     def printHG(self):
-        print('HG')
+        print('HG Matrix')
         for row in self.HG:
             rowPrintable = ''
             for element in row:

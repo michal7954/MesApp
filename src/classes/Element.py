@@ -19,7 +19,7 @@ class Element:
 
     dxH = []
     dyH = []
-    H = []
+    HPartial = []
     HTotal = []
 
     def __init__(self, dataString) -> None:
@@ -35,6 +35,10 @@ class Element:
         for node in self.nodes:
             stringNodesList.append(node.id)
         return f'{self.id} -> {stringNodesList}'
+
+    def printHeader(self):
+        print('-----------------------------------')
+        print('Element', self.id)
 
     # obliczenie macierzy Jakobiego, Jakobianu i odwrotnej macierzy Jakobiego w każdym punkcie całkowania
     def calculateJacobians(self):
@@ -104,8 +108,6 @@ class Element:
             outputInvertibleJacobianTable[2][point] = self.invertibleJacobianMatrices[point][1][0]
             outputInvertibleJacobianTable[3][point] = self.invertibleJacobianMatrices[point][1][1]
 
-        print('-----------------------------------')
-        print('Element', self.id)
         print('Macierze Jakobiego')
         print(np.matrix(outputJacobianTable))
         print()
@@ -138,7 +140,7 @@ class Element:
 
         self.dxH = [deepcopy(templateMatrix) for _ in range(self.pointsNumber)]
         self.dyH = [deepcopy(templateMatrix) for _ in range(self.pointsNumber)]
-        self.H = [deepcopy(templateMatrix) for _ in range(self.pointsNumber)]
+        self.HPartial = [deepcopy(templateMatrix) for _ in range(self.pointsNumber)]
         self.HTotal = deepcopy(templateMatrix)
 
         for point in range(self.pointsNumber):
@@ -146,16 +148,8 @@ class Element:
                 for j in range(nodeSize):
                     self.dxH[point][i][j] = self.dx[point][i] * self.dx[point][j]
                     self.dyH[point][i][j] = self.dy[point][i] * self.dy[point][j]
-                    self.H[point][i][j] = conductivity * self.jacobianDeterminants[point] * (self.dxH[point][i][j] + self.dyH[point][i][j])
-                    self.HTotal[i][j] += self.H[point][i][j] * weights[point]
-
-        # print('-----------------------------')
-        # print(np.matrix(self.dxH[0]))
-        # print()
-        # print(np.matrix(self.dyH[0]))
-        # print()
-        # print(np.matrix(self.H[0]))
-        # print()
+                    self.HPartial[point][i][j] = conductivity * self.jacobianDeterminants[point] * (self.dxH[point][i][j] + self.dyH[point][i][j])
+                    self.HTotal[i][j] += self.HPartial[point][i][j] * weights[point]
 
     def printHTotal(self):
         print('Macierz H (po zsumowaniu)')

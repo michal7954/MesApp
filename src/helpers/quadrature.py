@@ -32,8 +32,8 @@ def quadrature(f, dimension, pointsNumber=3):
     return sum
 
 
-print(quadrature(f1, 1, 2))
-print(quadrature(f1, 1, 3))
+# print(quadrature(f1, 1, 2))
+# print(quadrature(f1, 1, 3))
 
-print(quadrature(f2, 2, 2))
-print(quadrature(f2, 2, 3))
+# print(quadrature(f2, 2, 2))
+# print(quadrature(f2, 2, 3))

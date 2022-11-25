@@ -45,17 +45,6 @@ def initGrid():
             nodeObject = nodesList[nodeId - 1]
             elementsList[i].nodes[j] = nodeObject
 
-    # obliczenia związane z całką H na każdym elemencie
-    for element in elementsList:
-        element.calculateJacobians()
-        element.printJacobians()
-
-        element.calculateShapeFunctionsDerivates()
-        element.printShapeFuncitonsDerivates()
-
-        element.calculateH(globalData.conductivity)
-        element.printHTotal()
-
     grid = Grid()
     grid.nodesNumber = globalData.nodesNumber
     grid.elementsNumber = globalData.elementsNumber

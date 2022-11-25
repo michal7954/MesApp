@@ -30,23 +30,13 @@ class Elem4:
         ]
 
     def printKsiArray(self):
-        dKsiOutput = [None for _ in range(self.pointsNumber)]
-        for i in range(self.pointsNumber):
-            dKsiOutput[i] = [self.coords[i][1]]
-            dKsiOutput[i].extend(self.dKsi[i])
-
-        print('---------------------------------------------------------------')
-        print(np.matrix(dKsiOutput))
+        print('dN_i/dKsi')
+        print(np.matrix(self.dKsi))
         print()
 
     def printEtaArray(self):
-        dEtaOutput = [None for _ in range(self.pointsNumber)]
-        for i in range(self.pointsNumber):
-            dEtaOutput[i] = [self.coords[i][0]]
-            dEtaOutput[i].extend(self.dEta[i])
-
-        print('---------------------------------------------------------------')
-        print(np.matrix(dEtaOutput))
+        print('dN_i/dEta')
+        print(np.matrix(self.dEta))
         print()
 
 elem4 = Elem4()

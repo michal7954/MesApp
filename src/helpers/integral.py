@@ -35,8 +35,8 @@ def f(x):
     return x**2 - 2 * x + 2
 
 
-print(integrate(f, 1, 2, -2, 6))
-print(integrate(f, 1, 3, -2, 6))
+# print(integrate(f, 1, 2, -2, 6))
+# print(integrate(f, 1, 3, -2, 6))
 
 # def f1(x):
 #     return -5 * pow(x, 2) + 2 * x - 8
