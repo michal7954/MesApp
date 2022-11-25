@@ -5,18 +5,20 @@ from classes.GlobalData import GlobalData
 from params.configuration import inputFileIndex
 from params.consts import inputFileLocationList
 
-inputFile = open(inputFileLocationList[inputFileIndex], 'r')
-fileParts = inputFile.read().split('\n*')
+inputFile = open(inputFileLocationList[inputFileIndex], "r")
+fileParts = inputFile.read().split("\n*")
 for i in range(len(fileParts)):
-    fileParts[i] = fileParts[i].split('\n')
+    fileParts[i] = fileParts[i].split("\n")
 
 globalData = None
+
 
 def initGlobalData():
     global globalData
     params = fileParts[0]
     globalData = GlobalData(params)
     return globalData
+
 
 def initGrid():
     nodes = fileParts[1][1:]
@@ -28,7 +30,7 @@ def initGrid():
         nodesList.append(Node(nodeData))
 
     # uwzględnienie warunków brzegowych
-    boundaryNodesList = [int(id) for id in boundaryConditions.split(', ')]
+    boundaryNodesList = [int(id) for id in boundaryConditions.split(", ")]
     for i in range(len(nodesList)):
         if nodesList[i].id in boundaryNodesList:
             nodesList[i].boundaryCondition = 1

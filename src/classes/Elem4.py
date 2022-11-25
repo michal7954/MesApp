@@ -3,6 +3,7 @@ from params.configuration import pointsScheme
 from params.consts import nodeSize, shapeFunctions
 from helpers.generatePoints import coords
 
+
 class Elem4:
     dKsi = []
     dEta = []
@@ -30,13 +31,14 @@ class Elem4:
         ]
 
     def printKsiArray(self):
-        print('dN_i/dKsi')
+        print("dN_i/dKsi")
         print(np.matrix(self.dKsi))
         print()
 
     def printEtaArray(self):
-        print('dN_i/dEta')
+        print("dN_i/dEta")
         print(np.matrix(self.dEta))
         print()
+
 
 elem4 = Elem4()

@@ -1,5 +1,6 @@
 from params.consts import nodeSize
 
+
 class Grid:
     nodesNumber = None
     elementsNumber = None
@@ -8,15 +9,15 @@ class Grid:
     HG = []
 
     def print(self):
-        print(f'Nodes number: {self.nodesNumber}')
+        print(f"Nodes number: {self.nodesNumber}")
 
-        print('Nodes:')
+        print("Nodes:")
         for node in self.nodes:
             print(node)
-        
+
         print()
-        print(f'Elements number: {self.elementsNumber}')
-        print('Elements:')
+        print(f"Elements number: {self.elementsNumber}")
+        print("Elements:")
         for element in self.elements:
             print(element)
 
@@ -29,9 +30,9 @@ class Grid:
                     self.HG[element.nodes[i].id - 1][element.nodes[j].id - 1] += element.HTotal[i][j]
 
     def printHG(self):
-        print('HG Matrix')
+        print("HG Matrix")
         for row in self.HG:
-            rowPrintable = ''
+            rowPrintable = ""
             for element in row:
                 rowPrintable += "{:8.2f}".format(element)
             print(rowPrintable)

@@ -6,7 +6,7 @@ class Node:
     boundaryCondition = None
 
     def __init__(self, dataString) -> None:
-        stringParts = dataString.split(', ')
+        stringParts = dataString.split(", ")
 
         self.id = int(stringParts[0].strip())
         self.x = float(stringParts[1].strip())
@@ -15,4 +15,4 @@ class Node:
         self.boundaryCondition = 0
 
     def __str__(self) -> str:
-        return f'{self.id} -> ({self.x}, {self.y}) -> {self.boundaryCondition}'
+        return f"{self.id} -> ({self.x}, {self.y}) -> {self.boundaryCondition}"

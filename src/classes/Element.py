@@ -5,6 +5,7 @@ from params.configuration import pointsScheme
 from params.consts import nodeSize
 from helpers.generatePoints import weights
 
+
 class Element:
     id = None
     nodes = [None] * nodeSize
@@ -23,7 +24,7 @@ class Element:
     HTotal = []
 
     def __init__(self, dataString) -> None:
-        stringParts = dataString.split(', ')
+        stringParts = dataString.split(", ")
         self.id = int(stringParts[0])
         nodes = stringParts[1:]
         for i in range(len(nodes)):
@@ -34,11 +35,11 @@ class Element:
         stringNodesList = []
         for node in self.nodes:
             stringNodesList.append(node.id)
-        return f'{self.id} -> {stringNodesList}'
+        return f"{self.id} -> {stringNodesList}"
 
     def printHeader(self):
-        print('-----------------------------------')
-        print('Element', self.id)
+        print("-----------------------------------")
+        print("Element", self.id)
 
     # obliczenie macierzy Jakobiego, Jakobianu i odwrotnej macierzy Jakobiego w każdym punkcie całkowania
     def calculateJacobians(self):
@@ -108,13 +109,13 @@ class Element:
             outputInvertibleJacobianTable[2][point] = self.invertibleJacobianMatrices[point][1][0]
             outputInvertibleJacobianTable[3][point] = self.invertibleJacobianMatrices[point][1][1]
 
-        print('Macierze Jakobiego')
+        print("Macierze Jakobiego")
         print(np.matrix(outputJacobianTable))
         print()
-        print('Jakobiany')
+        print("Jakobiany")
         print(np.array(self.jacobianDeterminants))
         print()
-        print('Odwrotne macierze Jakobiego (po podzieleniu przez wyznacznik)')
+        print("Odwrotne macierze Jakobiego (po podzieleniu przez wyznacznik)")
         print(np.matrix(outputInvertibleJacobianTable))
         print()
 
@@ -128,10 +129,10 @@ class Element:
                 self.dy[point][i] = self.invertibleJacobianMatrices[point][1][0] * elem4.dKsi[point][i] + self.invertibleJacobianMatrices[point][1][1] * elem4.dEta[point][i] 
 
     def printShapeFuncitonsDerivates(self):
-        print('dN_i/dx')
+        print("dN_i/dx")
         print(np.matrix(self.dx))
         print()
-        print('dN_i/dy')
+        print("dN_i/dy")
         print(np.matrix(self.dy))
         print()
 
@@ -152,6 +153,6 @@ class Element:
                     self.HTotal[i][j] += self.HPartial[point][i][j] * weights[point]
 
     def printHTotal(self):
-        print('Macierz H (po zsumowaniu)')
+        print("Macierz H (po zsumowaniu)")
         print(np.matrix(self.HTotal))
         print()

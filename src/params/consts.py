@@ -2,11 +2,16 @@ from math import sqrt
 
 nodeSize = 4
 
-inputFile0Location = 'inputFiles/Test1_4_4.txt'
-inputFile1Location = 'inputFiles/Test2_4_4_MixGrid.txt'
-inputFile2Location = 'inputFiles/Test3_31_31_kwadrat.txt'
-inputFile3Location = 'inputFiles/Test_my.txt'
-inputFileLocationList = [inputFile0Location, inputFile1Location, inputFile2Location, inputFile3Location]
+inputFile0Location = "inputFiles/Test1_4_4.txt"
+inputFile1Location = "inputFiles/Test2_4_4_MixGrid.txt"
+inputFile2Location = "inputFiles/Test3_31_31_kwadrat.txt"
+inputFile3Location = "inputFiles/Test_my.txt"
+inputFileLocationList = [
+    inputFile0Location,
+    inputFile1Location,
+    inputFile2Location,
+    inputFile3Location,
+]
 
 twoPointsQuadrature = [
     [-1 / sqrt(3), 1 / sqrt(3)],
@@ -34,18 +39,9 @@ fourPointsQuadrature = [
 ]
 
 quadraturePoints = {
-    2: {
-        "coords": twoPointsQuadrature[0],
-        "weights": twoPointsQuadrature[1]
-    },
-    3: {
-        "coords": threePointsQuadrature[0],
-        "weights": threePointsQuadrature[1]
-    },
-    4: {
-        "coords": fourPointsQuadrature[0],
-        "weights": fourPointsQuadrature[1]
-    },
+    2: {"coords": twoPointsQuadrature[0], "weights": twoPointsQuadrature[1]},
+    3: {"coords": threePointsQuadrature[0], "weights": threePointsQuadrature[1]},
+    4: {"coords": fourPointsQuadrature[0], "weights": fourPointsQuadrature[1]},
 }
 
 shapeFunctions = {

@@ -3,6 +3,7 @@ from classes.Elem4 import elem4
 from helpers.generatePoints import coords
 from numpy import matrix
 
+
 def main():
     globalData = initGlobalData()
     grid = initGrid()
@@ -33,5 +34,6 @@ def main():
     grid.calculateHG()
     grid.printHG()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
