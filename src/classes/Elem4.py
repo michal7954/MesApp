@@ -1,14 +1,18 @@
 import numpy as np
 from params.configuration import pointsScheme
 from params.consts import nodeSize, shapeFunctions
-from helpers.generatePoints import coords
+from helpers.generatePoints import coords, boundaryCoords
 
 
 class Elem4:
+    pointsNumber = pointsScheme**2
+
+    coords = coords
     dKsi = []
     dEta = []
-    pointsNumber = pointsScheme**2
-    coords = coords
+
+    boundaryCoords = boundaryCoords
+    boundaryPointsN = []
 
     def __init__(self) -> None:
         # załadowanie listy pochodnych funkcji kształtu
@@ -29,6 +33,25 @@ class Elem4:
             [dEtaFuncs[i](self.coords[j][0]) for i in range(nodeSize)]
             for j in range(self.pointsNumber)
         ]
+
+        # obliczanie wartości funkcji kształtu dla punktów całkowania warunku brzegowego
+        self.boundaryPointsN = [[[0 for _ in range(nodeSize)] for _ in range(pointsScheme)] for _ in range(nodeSize)]
+        NFuncs = shapeFunctions["func"]
+
+        # bok elementu skończonego
+        for side in range(nodeSize):
+            # kolejne punkty całkowania na boku
+            for point in range(pointsScheme):
+                # funkcje kształtu kolejnych węzłów
+                for node in range(nodeSize):
+                    # N_i(ksi, eta)
+                    self.boundaryPointsN[side][point][node] = NFuncs[node](
+                        boundaryCoords[side][point][0], boundaryCoords[side][point][1]
+                    )
+
+        # for side in self.boundaryPointsN:
+        #     for point in side:
+        #         print(point)
 
     def printKsiArray(self):
         print("dN_i/dKsi")

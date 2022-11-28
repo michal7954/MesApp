@@ -20,7 +20,7 @@ def main():
 
     # obliczenia związane z całką H na każdym elemencie
     for element in grid.elements:
-        # element.printHeader()
+        element.printHeader()
 
         element.calculateJacobians()
         # element.printJacobians()
@@ -31,8 +31,11 @@ def main():
         element.calculateH(globalData.conductivity)
         # element.printHTotal()
 
+        element.calculateBoundaryConditionH(globalData.conductivity)
+        element.printBoundaryConditionH()
+
     grid.calculateHG()
-    grid.printHG()
+    # grid.printHG()
 
 
 if __name__ == "__main__":

@@ -3,7 +3,9 @@ from copy import deepcopy
 from classes.Elem4 import elem4
 from params.configuration import pointsScheme
 from params.consts import nodeSize
-from helpers.generatePoints import weights
+from helpers.generatePoints import weights, boundaryWeights
+from helpers.distance import distance
+from helpers.printTable import printTable
 
 
 class Element:
@@ -22,6 +24,8 @@ class Element:
     dyH = []
     HPartial = []
     HTotal = []
+
+    boundaryConditionH = []
 
     def __init__(self, dataString) -> None:
         stringParts = dataString.split(", ")
@@ -155,4 +159,40 @@ class Element:
     def printHTotal(self):
         print("Macierz H (po zsumowaniu)")
         print(np.matrix(self.HTotal))
+        print()
+
+    def calculateBoundaryConditionH(self, conductivity):
+        self.boundaryConditionH = [[0 for _ in range(nodeSize)] for _ in range(nodeSize)]
+        for side in range(nodeSize):
+            nodeA = side
+            nodeB = (side + 1) % nodeSize
+
+            # jeśli bok nie należy do brzegu nie uwzględniaj go w macierzy boundaryConditionH
+            if not (self.nodes[nodeA].boundaryCondition and self.nodes[nodeB].boundaryCondition):
+                continue
+
+            detJ = distance(self.nodes[nodeA], self.nodes[nodeB]) / 2
+            # print(detJ)
+
+            for point in range(pointsScheme):
+                for i in range(nodeSize):
+                    for j in range(nodeSize):
+                        # bezpośrednio na podstawie wzoru ze slajdu 6 - Całkowanie wektora P
+                        # z pominięciem pośrednich macierzy dla poszczególnych punktów całkowania
+                        # z pominięciem jawnej macierzy {N}{N}^T
+                        self.boundaryConditionH[i][j] += (
+                            boundaryWeights[side][point]
+                            * conductivity
+                            * elem4.boundaryPointsN[side][point][i]
+                            * elem4.boundaryPointsN[side][point][j]
+                            * detJ
+                        )
+
+        # dodanie warunku brzegowego do ostatecznej macierzy H elementu
+        for i in range(nodeSize):
+            for j in range(nodeSize):
+                self.HTotal[i][j] += self.boundaryConditionH[i][j]
+
+    def printBoundaryConditionH(self):
+        printTable(self.boundaryConditionH, 8, 4)
         print()
