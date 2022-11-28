@@ -1,4 +1,5 @@
 from params.consts import nodeSize
+from helpers.printTable import printTable
 
 
 class Grid:
@@ -31,9 +32,5 @@ class Grid:
 
     def printHG(self):
         print("HG Matrix")
-        for row in self.HG:
-            rowPrintable = ""
-            for element in row:
-                rowPrintable += "{:8.2f}".format(element)
-            print(rowPrintable)
+        printTable(self.HG, 8, 2)
         print()
