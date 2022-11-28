@@ -1,6 +1,6 @@
 from params.consts import quadraturePoints
 from params.configuration import pointsScheme
-from params.consts import nodeSize
+from params.consts import elementSize
 
 
 def generatePoints():
@@ -25,8 +25,8 @@ def generateBoundaryPoints():
     coords = quadraturePoints[pointsScheme]["coords"]
     weights = quadraturePoints[pointsScheme]["weights"]
 
-    pointsList = [[] for _ in range(nodeSize)]
-    weightsList = [[] for _ in range(nodeSize)]
+    pointsList = [[] for _ in range(elementSize)]
+    weightsList = [[] for _ in range(elementSize)]
 
     # dolny bok
     for i in range(pointsScheme):

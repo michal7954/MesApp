@@ -1,4 +1,4 @@
-from params.consts import nodeSize
+from params.consts import elementSize
 from helpers.printTable import printTable
 
 
@@ -26,8 +26,8 @@ class Grid:
         self.HG = [[0 for _ in range(len(self.nodes))] for _ in range(len(self.nodes))]
 
         for element in self.elements:
-            for i in range(nodeSize):
-                for j in range(nodeSize):
+            for i in range(elementSize):
+                for j in range(elementSize):
                     self.HG[element.nodes[i].id - 1][element.nodes[j].id - 1] += element.HTotal[i][j]
 
     def printHG(self):

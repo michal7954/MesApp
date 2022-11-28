@@ -2,7 +2,7 @@ import numpy as np
 from copy import deepcopy
 from classes.Elem4 import elem4
 from params.configuration import pointsScheme
-from params.consts import nodeSize
+from params.consts import elementSize
 from helpers.generatePoints import weights, boundaryWeights
 from helpers.distance import distance
 from helpers.printTable import printTable
@@ -10,7 +10,7 @@ from helpers.printTable import printTable
 
 class Element:
     id = None
-    nodes = [None] * nodeSize
+    nodes = [None] * elementSize
     pointsNumber = pointsScheme**2
 
     jacobianMatrices = []
@@ -79,10 +79,10 @@ class Element:
 
         # wybranie odpowiednich współrzędnych do interpolacji (x lub y)
         if globalCoordsType == 0:
-            for i in range(nodeSize):
+            for i in range(elementSize):
                 globalCoords.append(self.nodes[i].x)
         elif globalCoordsType == 1:
-            for i in range(nodeSize):
+            for i in range(elementSize):
                 globalCoords.append(self.nodes[i].y)
 
         # wybranie wartości pochodnych po odpowiedniej współrzędnej lokalnej i dla odpowiedniego punktu całkowania
@@ -93,7 +93,7 @@ class Element:
 
         # interpolacja elementu macierzy Jacobiego
         sum = 0
-        for i in range(nodeSize):
+        for i in range(elementSize):
             sum += valuesList[i] * globalCoords[i]
 
         return sum
@@ -124,11 +124,11 @@ class Element:
         print()
 
     def calculateShapeFunctionsDerivates(self):
-        self.dx = [[0 for _ in range(nodeSize)] for _ in range(self.pointsNumber)]
-        self.dy = [[0 for _ in range(nodeSize)] for _ in range(self.pointsNumber)]
+        self.dx = [[0 for _ in range(elementSize)] for _ in range(self.pointsNumber)]
+        self.dy = [[0 for _ in range(elementSize)] for _ in range(self.pointsNumber)]
 
         for point in range(self.pointsNumber):
-            for i in range(nodeSize):
+            for i in range(elementSize):
                 self.dx[point][i] = self.invertibleJacobianMatrices[point][0][0] * elem4.dKsi[point][i] + self.invertibleJacobianMatrices[point][0][1] * elem4.dEta[point][i]
                 self.dy[point][i] = self.invertibleJacobianMatrices[point][1][0] * elem4.dKsi[point][i] + self.invertibleJacobianMatrices[point][1][1] * elem4.dEta[point][i] 
 
@@ -141,7 +141,7 @@ class Element:
         print()
 
     def calculateH(self, conductivity):
-        templateMatrix = [[0 for _ in range(nodeSize)] for _ in range(nodeSize)]
+        templateMatrix = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
 
         self.dxH = [deepcopy(templateMatrix) for _ in range(self.pointsNumber)]
         self.dyH = [deepcopy(templateMatrix) for _ in range(self.pointsNumber)]
@@ -149,8 +149,8 @@ class Element:
         self.HTotal = deepcopy(templateMatrix)
 
         for point in range(self.pointsNumber):
-            for i in range(nodeSize):
-                for j in range(nodeSize):
+            for i in range(elementSize):
+                for j in range(elementSize):
                     self.dxH[point][i][j] = self.dx[point][i] * self.dx[point][j]
                     self.dyH[point][i][j] = self.dy[point][i] * self.dy[point][j]
                     self.HPartial[point][i][j] = conductivity * self.jacobianDeterminants[point] * (self.dxH[point][i][j] + self.dyH[point][i][j])
@@ -162,10 +162,10 @@ class Element:
         print()
 
     def calculateBoundaryConditionH(self, conductivity):
-        self.boundaryConditionH = [[0 for _ in range(nodeSize)] for _ in range(nodeSize)]
-        for side in range(nodeSize):
+        self.boundaryConditionH = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
+        for side in range(elementSize):
             nodeA = side
-            nodeB = (side + 1) % nodeSize
+            nodeB = (side + 1) % elementSize
 
             # jeśli bok nie należy do brzegu nie uwzględniaj go w macierzy boundaryConditionH
             if not (self.nodes[nodeA].boundaryCondition and self.nodes[nodeB].boundaryCondition):
@@ -175,8 +175,8 @@ class Element:
             # print(detJ)
 
             for point in range(pointsScheme):
-                for i in range(nodeSize):
-                    for j in range(nodeSize):
+                for i in range(elementSize):
+                    for j in range(elementSize):
                         # bezpośrednio na podstawie wzoru ze slajdu 6 - Całkowanie wektora P
                         # z pominięciem pośrednich macierzy dla poszczególnych punktów całkowania
                         # z pominięciem jawnej macierzy {N}{N}^T
@@ -189,8 +189,8 @@ class Element:
                         )
 
         # dodanie warunku brzegowego do ostatecznej macierzy H elementu
-        for i in range(nodeSize):
-            for j in range(nodeSize):
+        for i in range(elementSize):
+            for j in range(elementSize):
                 self.HTotal[i][j] += self.boundaryConditionH[i][j]
 
     def printBoundaryConditionH(self):

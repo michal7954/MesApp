@@ -1,6 +1,7 @@
 from math import sqrt
 
-nodeSize = 4
+# rozmiar elementu skończonego (liczba wierzchołków)
+elementSize = 4
 
 inputFile0Location = "inputFiles/Test1_4_4.txt"
 inputFile1Location = "inputFiles/Test2_4_4_MixGrid.txt"
