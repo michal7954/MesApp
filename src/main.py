@@ -31,7 +31,7 @@ def main():
         element.calculateH(globalData.conductivity)
         # element.printHTotal()
 
-        element.calculateBoundaryConditionH(globalData.conductivity)
+        element.calculateBoundaryConditionH(globalData.alfa)
         element.printBoundaryConditionH()
 
     grid.calculateHG()

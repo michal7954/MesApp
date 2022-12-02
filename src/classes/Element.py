@@ -161,7 +161,7 @@ class Element:
         print(np.matrix(self.HTotal))
         print()
 
-    def calculateBoundaryConditionH(self, conductivity):
+    def calculateBoundaryConditionH(self, alfa):
         self.boundaryConditionH = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
         for side in range(elementSize):
             nodeA = side
@@ -182,7 +182,7 @@ class Element:
                         # z pominięciem jawnej macierzy {N}{N}^T
                         self.boundaryConditionH[i][j] += (
                             boundaryWeights[side][point]
-                            * conductivity
+                            * alfa
                             * elem4.boundaryPointsN[side][point][i]
                             * elem4.boundaryPointsN[side][point][j]
                             * detJ
