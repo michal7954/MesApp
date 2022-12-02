@@ -35,7 +35,7 @@ def main():
         element.printBoundaryConditionH()
 
     grid.calculateHG()
-    # grid.printHG()
+    grid.printHG()
 
 
 if __name__ == "__main__":
