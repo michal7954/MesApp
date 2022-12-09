@@ -20,7 +20,7 @@ def main():
 
     # obliczenia związane z całką H na każdym elemencie
     for element in grid.elements:
-        element.printHeader()
+        # element.printHeader()
 
         element.calculateJacobians()
         # element.printJacobians()
@@ -32,10 +32,19 @@ def main():
         # element.printHTotal()
 
         element.calculateBoundaryConditionH(globalData.alfa)
-        element.printBoundaryConditionH()
+        # element.printBoundaryConditionH()
+
+        element.calculateP(globalData.alfa, globalData.tot)
+        # element.printP()
 
     grid.calculateHG()
-    grid.printHG()
+    # grid.printHG()
+
+    grid.calculatePG()
+    # grid.printPG()
+
+    grid.solve()
+    grid.printSolution()
 
 
 if __name__ == "__main__":

@@ -27,6 +27,8 @@ class Element:
 
     boundaryConditionH = []
 
+    P = []
+
     def __init__(self, dataString) -> None:
         stringParts = dataString.split(", ")
         self.id = int(stringParts[0])
@@ -163,6 +165,7 @@ class Element:
 
     def calculateBoundaryConditionH(self, alfa):
         self.boundaryConditionH = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
+        
         for side in range(elementSize):
             nodeA = side
             nodeB = (side + 1) % elementSize
@@ -177,7 +180,7 @@ class Element:
             for point in range(pointsScheme):
                 for i in range(elementSize):
                     for j in range(elementSize):
-                        # bezpośrednio na podstawie wzoru ze slajdu 6 - Całkowanie wektora P
+                        # bezpośrednio na podstawie wzoru całkowania
                         # z pominięciem pośrednich macierzy dla poszczególnych punktów całkowania
                         # z pominięciem jawnej macierzy {N}{N}^T
                         self.boundaryConditionH[i][j] += (
@@ -195,4 +198,33 @@ class Element:
 
     def printBoundaryConditionH(self):
         printTable(self.boundaryConditionH, 8, 4)
+        print()
+
+    def calculateP(self, alfa, tot):
+        self.P = [0 for _ in range(elementSize)]
+        
+        for side in range(elementSize):
+            nodeA = side
+            nodeB = (side + 1) % elementSize
+
+            # jeśli bok nie należy do brzegu nie uwzględniaj go w macierzy P
+            if not (self.nodes[nodeA].boundaryCondition and self.nodes[nodeB].boundaryCondition):
+                continue
+
+            detJ = distance(self.nodes[nodeA], self.nodes[nodeB]) / 2
+
+            for point in range(pointsScheme):
+                for i in range(elementSize):
+                    # bezpośrednio na podstawie wzoru całkowania
+                    # z pominięciem pośrednich macierzy dla poszczególnych punktów całkowania
+                    self.P[i] += (
+                        alfa
+                        * boundaryWeights[side][point]
+                        * elem4.boundaryPointsN[side][point][i]
+                        * tot
+                        * detJ
+                    )
+
+    def printP(self):
+        print(self.P)
         print()

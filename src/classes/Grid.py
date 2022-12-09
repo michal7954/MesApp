@@ -1,5 +1,6 @@
 from params.consts import elementSize
 from helpers.printTable import printTable
+from numpy import linalg
 
 
 class Grid:
@@ -8,6 +9,8 @@ class Grid:
     nodes = []
     elements = []
     HG = []
+    PG = []
+    t = []
 
     def print(self):
         print(f"Nodes number: {self.nodesNumber}")
@@ -34,3 +37,18 @@ class Grid:
         print("HG Matrix")
         printTable(self.HG, 8, 2)
         print()
+
+    def calculatePG(self):
+        self.PG = [0 for _ in range(len(self.nodes))]
+        for element in self.elements:
+            for i in range(elementSize):
+                self.PG[element.nodes[i].id - 1] += element.P[i]
+
+    def printPG(self):
+        print(self.PG)
+
+    def solve(self):
+        self.t = linalg.solve(self.HG, self.PG)
+
+    def printSolution(self):
+        print(self.t)
