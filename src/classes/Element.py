@@ -165,7 +165,7 @@ class Element:
         print(np.matrix(self.HTotal))
         print()
 
-    def calculateAgregateBoundaryConditionH(self, alfa):
+    def countBoundaryConditionH(self, alfa):
         self.boundaryConditionH = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
         
         for side in range(elementSize):
