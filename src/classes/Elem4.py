@@ -14,6 +14,9 @@ class Elem4:
     boundaryCoords = boundaryCoords
     boundaryPointsN = []
 
+    NValues = []
+    NxNT = []
+
     def __init__(self) -> None:
         # załadowanie listy pochodnych funkcji kształtu
         dKsiFuncs = shapeFunctions["dKsi"]
@@ -52,6 +55,30 @@ class Elem4:
         # for side in self.boundaryPointsN:
         #     for point in side:
         #         print(point)
+
+        self.NValues = [
+            [
+                NFuncs[i](self.coords[pointNumber][0], self.coords[pointNumber][1])
+                for i in range(elementSize)
+            ]
+            for pointNumber in range(self.pointsNumber)
+        ]
+
+        self.NxNT = [
+            [
+                [
+                    self.NValues[pointNumber][i] * self.NValues[pointNumber][j]
+                    for i in range(elementSize)
+                ]
+                for j in range(elementSize)
+            ]
+            for pointNumber in range(self.pointsNumber)
+        ]
+
+        # for matrix in self.NxNT:
+        #     for row in matrix:
+        #         print(row)
+        #     print('---------------')
 
     def printKsiArray(self):
         print("dN_i/dKsi")

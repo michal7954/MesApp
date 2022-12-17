@@ -31,17 +31,25 @@ def main():
         element.calculateH(globalData.conductivity)
         # element.printHTotal()
 
-        element.calculateBoundaryConditionH(globalData.alfa)
+        element.calculateAgregateBoundaryConditionH(globalData.alfa)
         # element.printBoundaryConditionH()
 
         element.calculateP(globalData.alfa, globalData.tot)
         # element.printP()
+
+        element.calculateC(globalData.specificHeat, globalData.density)
+        # element.printC()
 
     grid.calculateHG()
     # grid.printHG()
 
     grid.calculatePG()
     # grid.printPG()
+
+    grid.calculateAgregateCG(globalData.simulationStepTime, globalData.initialTemp)
+    grid.printCG()
+    grid.printHG()
+    grid.printPG()
 
     grid.solve()
     grid.printSolution()

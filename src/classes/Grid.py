@@ -10,6 +10,7 @@ class Grid:
     elements = []
     HG = []
     PG = []
+    CG = []
     t = []
 
     def print(self):
@@ -45,10 +46,35 @@ class Grid:
                 self.PG[element.nodes[i].id - 1] += element.P[i]
 
     def printPG(self):
+        print("PG Vector")
         print(self.PG)
+        print()
+
+    def calculateAgregateCG(self, simulationStepTime, initialTemp):
+        self.CG = [[0 for _ in range(len(self.nodes))] for _ in range(len(self.nodes))]
+
+        for element in self.elements:
+            for i in range(elementSize):
+                for j in range(elementSize):
+                    self.CG[element.nodes[i].id - 1][element.nodes[j].id - 1] += element.C[i][j]
+
+        for i in range(len(self.nodes)):
+            for j in range(len(self.nodes)):
+                self.HG[i][j] += self.CG[i][j] / simulationStepTime
+
+        for i in range(len(self.nodes)):
+            for j in range(len(self.nodes)):
+                self.PG[i] += self.CG[i][j] / simulationStepTime * initialTemp
+
+    def printCG(self):
+        print("CG Matrix")
+        printTable(self.CG, 8, 2)
+        print()
 
     def solve(self):
         self.t = linalg.solve(self.HG, self.PG)
 
     def printSolution(self):
+        print("Temperature Vector Solution")
         print(self.t)
+        print()

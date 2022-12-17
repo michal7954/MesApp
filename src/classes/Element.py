@@ -29,6 +29,8 @@ class Element:
 
     P = []
 
+    C = []
+
     def __init__(self, dataString) -> None:
         stringParts = dataString.split(", ")
         self.id = int(stringParts[0])
@@ -163,7 +165,7 @@ class Element:
         print(np.matrix(self.HTotal))
         print()
 
-    def calculateBoundaryConditionH(self, alfa):
+    def calculateAgregateBoundaryConditionH(self, alfa):
         self.boundaryConditionH = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
         
         for side in range(elementSize):
@@ -202,7 +204,7 @@ class Element:
 
     def calculateP(self, alfa, tot):
         self.P = [0 for _ in range(elementSize)]
-        
+
         for side in range(elementSize):
             nodeA = side
             nodeB = (side + 1) % elementSize
@@ -227,4 +229,22 @@ class Element:
 
     def printP(self):
         print(self.P)
+        print()
+
+    def calculateC(self, specificHeat, density):
+        self.C = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
+
+        for point in range(self.pointsNumber):
+            for i in range(elementSize):
+                for j in range(elementSize):
+                    self.C[i][j] += (
+                        specificHeat
+                        * density
+                        * elem4.NxNT[point][i][j]
+                        * weights[point]
+                        * self.jacobianDeterminants[point]
+                    )
+
+    def printC(self):
+        printTable(self.C, 8, 2)
         print()
