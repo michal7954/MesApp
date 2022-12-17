@@ -13,6 +13,13 @@ class Grid:
     CG = []
     t = []
 
+    def __init__(self, nodesList, elementsList, initialTemp):
+        self.nodesNumber = len(nodesList)
+        self.elementsNumber = len(elementsList)
+        self.nodes = nodesList
+        self.elements = elementsList
+        self.t = [initialTemp for _ in range(self.nodesNumber)]
+
     def print(self):
         print(f"Nodes number: {self.nodesNumber}")
 

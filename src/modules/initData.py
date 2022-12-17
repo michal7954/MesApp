@@ -27,7 +27,7 @@ def initGrid():
 
     nodesList = []
     for nodeData in nodes:
-        nodesList.append(Node(nodeData))
+        nodesList.append(Node(nodeData, globalData.initialTemp))
 
     # uwzględnienie warunków brzegowych
     boundaryNodesList = [int(id) for id in boundaryConditions.split(", ")]
@@ -47,10 +47,6 @@ def initGrid():
             nodeObject = nodesList[nodeId - 1]
             elementsList[i].nodes[j] = nodeObject
 
-    grid = Grid()
-    grid.nodesNumber = globalData.nodesNumber
-    grid.elementsNumber = globalData.elementsNumber
-    grid.nodes = nodesList
-    grid.elements = elementsList
+    grid = Grid(nodesList, elementsList, globalData.initialTemp)
 
     return grid
