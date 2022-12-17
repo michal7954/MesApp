@@ -49,8 +49,10 @@ def main():
     grid.calculateCG()
     grid.printCG()
 
-    grid.simulate(globalData.simulationStepTime)
-    grid.printSolution()
+    simulationSteps = globalData.simulationTime // globalData.simulationStepTime
+    for i in range(simulationSteps):
+        grid.simulate(globalData.simulationStepTime)
+        grid.printSolutionMinMax((i + 1) * globalData.simulationStepTime)
 
 
 if __name__ == "__main__":

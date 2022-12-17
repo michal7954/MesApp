@@ -92,3 +92,9 @@ class Grid:
         print("Temperature Vector Solution")
         print(self.t)
         print()
+
+    def printSolutionMinMax(self, time):
+        outputString = "{:3}".format(time)
+        outputString += "{:14.6f}".format(min(self.t))
+        outputString += "{:14.6f}".format(max(self.t))
+        print(outputString)
