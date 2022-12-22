@@ -2,13 +2,16 @@ from params.consts import elementSize
 from helpers.printTable import printTable
 from numpy import linalg
 from copy import deepcopy
+from classes.Element import Element
+from classes.Node import Node
+from typing import MutableSequence
 
 
 class Grid:
     nodesNumber = None
     elementsNumber = None
-    nodes = []
-    elements = []
+    nodes: MutableSequence[Node] = []
+    elements: MutableSequence[Element] = []
     HG = []
     PG = []
     CG = []

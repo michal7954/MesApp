@@ -13,14 +13,14 @@ for i in range(len(fileParts)):
 globalData = None
 
 
-def initGlobalData():
+def initGlobalData() -> GlobalData:
     global globalData
     params = fileParts[0]
     globalData = GlobalData(params)
     return globalData
 
 
-def initGrid():
+def initGrid() -> Grid:
     nodes = fileParts[1][1:]
     elements = fileParts[2][1:]
     boundaryConditions = fileParts[3][1]
