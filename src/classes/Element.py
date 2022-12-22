@@ -75,6 +75,7 @@ class Element:
             self.invertibleJacobianMatrices[point][1][1] = self.jacobianMatrices[point][0][0] / self.jacobianDeterminants[point]
         
 
+    # obliczenie wartości pojedynczego elementu macierzy Jakobiego
     def calculateJacobianElement(self, point, localCoordsType, globalCoordsType):
         globalCoords = []
         valuesList = None
@@ -125,6 +126,8 @@ class Element:
         print(np.matrix(outputInvertibleJacobianTable))
         print()
 
+    # obliczenie wartości pochodnych f. kształtu po współrzędnych globanych
+    # dN_i/dx oraz dN_i/dy 
     def calculateShapeFunctionsDerivates(self):
         self.dx = [[0 for _ in range(elementSize)] for _ in range(self.pointsNumber)]
         self.dy = [[0 for _ in range(elementSize)] for _ in range(self.pointsNumber)]
@@ -142,6 +145,7 @@ class Element:
         print(np.matrix(self.dy))
         print()
 
+    # obliczenie lokalnej macierzy H bez uwzględnienia warunku brzegowego
     def calculateH(self, conductivity):
         templateMatrix = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
 
@@ -163,6 +167,7 @@ class Element:
         print(np.matrix(self.HTotal))
         print()
 
+    # uwzględnienie warunku brzegowego w lokalnej macierzy H
     def countBoundaryConditionH(self, alfa):
         self.boundaryConditionH = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
         
@@ -200,6 +205,7 @@ class Element:
         printTable(self.boundaryConditionH, 8, 4)
         print()
 
+    # obliczenie lokalnego wektora P
     def calculateP(self, alfa, tot):
         self.P = [0 for _ in range(elementSize)]
 
@@ -229,6 +235,7 @@ class Element:
         print(self.P)
         print()
 
+    # obliczenie lokalnej macierzy C
     def calculateC(self, specificHeat, density):
         self.C = [[0 for _ in range(elementSize)] for _ in range(elementSize)]
 

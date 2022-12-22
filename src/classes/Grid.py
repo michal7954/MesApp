@@ -37,6 +37,7 @@ class Grid:
         for element in self.elements:
             print(element)
 
+    # agregacja lokalnych macierzy H (z uwzględnionym warunkiem brzegowym) do globalnej H
     def calculateHG(self):
         self.HG = [[0 for _ in range(len(self.nodes))] for _ in range(len(self.nodes))]
 
@@ -50,6 +51,7 @@ class Grid:
         printTable(self.HG, 8, 2)
         print()
 
+    # agregacja lokalnych wektorów P do globalnego P
     def calculatePG(self):
         self.PG = [0 for _ in range(len(self.nodes))]
         for element in self.elements:
@@ -61,6 +63,7 @@ class Grid:
         print(self.PG)
         print()
 
+    # agregacja lokalnych macierzy C do globalnej C
     def calculateCG(self):
         self.CG = [[0 for _ in range(len(self.nodes))] for _ in range(len(self.nodes))]
 
@@ -74,14 +77,17 @@ class Grid:
         printTable(self.CG, 8, 2)
         print()
 
+    # symulacja pojedynczego kroku czasowego - wyznaczenie wektora temperatur po podanym czasie
     def simulate(self, simulationStepTime):
         H = deepcopy(self.HG)
         P = deepcopy(self.PG)
 
+        # uwzględnienie macierzy C w macierzy H
         for i in range(len(self.nodes)):
             for j in range(len(self.nodes)):
                 H[i][j] += self.CG[i][j] / simulationStepTime
 
+        # uwzględnienie macierzy C w wektorze P
         for i in range(len(self.nodes)):
             for j in range(len(self.nodes)):
                 P[i] += self.CG[i][j] * self.t[j] / simulationStepTime
@@ -94,8 +100,10 @@ class Grid:
         # print(P)
         # print()
 
+        # rozwiązanie układu równań z użyciem biblioteki numpy
         self.t = linalg.solve(H, P)
 
+        # aktualizacja temperatury w węzłach
         for i in range(self.nodesNumber):
             self.nodes[i].temperature = self.t[i]
 
@@ -104,6 +112,7 @@ class Grid:
         print(self.t)
         print()
 
+    # wypisz minimalną i maksymalną temperaturę występującą w siatce w obecnej chwili symulacji
     def printSolutionMinMax(self, time):
         outputString = "{:3}".format(time)
         outputString += "{:14.6f}".format(min(self.t))
