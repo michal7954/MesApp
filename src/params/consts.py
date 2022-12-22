@@ -3,16 +3,13 @@ from math import sqrt
 # rozmiar elementu skończonego (liczba wierzchołków)
 elementSize = 4
 
-inputFile0Location = "inputFiles/Test1_4_4.txt"
-inputFile1Location = "inputFiles/Test2_4_4_MixGrid.txt"
-inputFile2Location = "inputFiles/Test3_31_31_kwadrat.txt"
-inputFile3Location = "inputFiles/Test_my.txt"
+inputFilesDirectory = "inputFiles/"
 inputFileLocationList = [
-    inputFile0Location,
-    inputFile1Location,
-    inputFile2Location,
-    inputFile3Location,
-    "inputFiles/Test_my2.txt",
+    "Test1_4_4.txt",
+    "Test2_4_4_MixGrid.txt",
+    "Test3_31_31_kwadrat.txt",
+    "kwadrat0.025.txt",
+    "trapez.txt",
 ]
 
 twoPointsQuadrature = [

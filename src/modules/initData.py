@@ -3,9 +3,9 @@ from classes.Element import Element
 from classes.Grid import Grid
 from classes.GlobalData import GlobalData
 from params.configuration import inputFileIndex
-from params.consts import inputFileLocationList
+from params.consts import inputFilesDirectory, inputFileLocationList
 
-inputFile = open(inputFileLocationList[inputFileIndex], "r")
+inputFile = open(f'{inputFilesDirectory}{inputFileLocationList[inputFileIndex]}', "r")
 fileParts = inputFile.read().split("\n*")
 for i in range(len(fileParts)):
     fileParts[i] = fileParts[i].split("\n")
