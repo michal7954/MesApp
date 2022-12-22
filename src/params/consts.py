@@ -12,6 +12,7 @@ inputFileLocationList = [
     inputFile1Location,
     inputFile2Location,
     inputFile3Location,
+    "inputFiles/Test_my2.txt",
 ]
 
 twoPointsQuadrature = [

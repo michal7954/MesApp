@@ -24,11 +24,9 @@ class Element:
     dyH = []
     HPartial = []
     HTotal = []
-
     boundaryConditionH = []
-
+    
     P = []
-
     C = []
 
     def __init__(self, dataString) -> None:

@@ -83,6 +83,14 @@ class Grid:
             for j in range(len(self.nodes)):
                 P[i] += self.CG[i][j] * self.t[j] / simulationStepTime
 
+        # print("H+C Matrix")
+        # printTable(H, 10, 4)
+        # print()
+
+        # print("P+C Vector")
+        # print(P)
+        # print()
+
         self.t = linalg.solve(H, P)
 
         for i in range(self.nodesNumber):

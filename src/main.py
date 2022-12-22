@@ -18,7 +18,6 @@ def main():
     # elem4.printKsiArray()
     # elem4.printEtaArray()
 
-    # obliczenia związane z całką H na każdym elemencie
     for element in grid.elements:
         # element.printHeader()
 
@@ -41,18 +40,19 @@ def main():
         # element.printC()
 
     grid.calculateHG()
-    grid.printHG()
+    # grid.printHG()
 
     grid.calculatePG()
-    grid.printPG()
+    # grid.printPG()
 
     grid.calculateCG()
-    grid.printCG()
+    # grid.printCG()
 
     simulationSteps = globalData.simulationTime // globalData.simulationStepTime
     for i in range(simulationSteps):
         grid.simulate(globalData.simulationStepTime)
         grid.printSolutionMinMax((i + 1) * globalData.simulationStepTime)
+        # grid.printSolution()
 
 
 if __name__ == "__main__":
