@@ -26,12 +26,12 @@ class Elem4:
         # i-ta funkcja kształtu
         # j-ty punkt całkowania
 
-        # dKsi - tablica zawierająca wartości pochodnych po ksi, których argumentem jest eta (druga współrzędna)
+        # dKsi - tablica zawierająca wartości pochodnych funkcji kształtu po ksi, których argumentem jest eta (druga współrzędna)
         self.dKsi = [
             [dKsiFuncs[i](self.coords[j][1]) for i in range(elementSize)]
             for j in range(self.pointsNumber)
         ]
-        # dEta - tablica zawierająca wartości pochodnych po eta, których argumentem jest ksi (pierwsza współrzędna)
+        # dEta - tablica zawierająca wartości pochodnych funkcji kształtu po eta, których argumentem jest ksi (pierwsza współrzędna)
         self.dEta = [
             [dEtaFuncs[i](self.coords[j][0]) for i in range(elementSize)]
             for j in range(self.pointsNumber)

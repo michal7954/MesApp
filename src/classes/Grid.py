@@ -12,6 +12,7 @@ class Grid:
     elementsNumber = None
     nodes: MutableSequence[Node] = []
     elements: MutableSequence[Element] = []
+    
     HG = []
     PG = []
     CG = []
