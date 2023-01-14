@@ -116,6 +116,6 @@ class Grid:
     # wypisz minimalną i maksymalną temperaturę występującą w siatce w obecnej chwili symulacji
     def printSolutionMinMax(self, time):
         outputString = "{:3}".format(time)
-        outputString += "{:14.6f}".format(min(self.t))
-        outputString += "{:14.6f}".format(max(self.t))
+        outputString += "{:16.10f}".format(min(self.t))
+        outputString += "{:16.10f}".format(max(self.t))
         print(outputString)
